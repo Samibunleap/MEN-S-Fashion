@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEN'S — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── HOME-ONLY STYLES ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 620px;
+      background: url("./image/background-header.avif") center/cover no-repeat;
+      display: flex; align-items: center; padding-left: 120px; overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.2) 60%,transparent 100%);
+    }
+    .hero-text { position: relative; z-index: 2; animation: fadeUp .9s ease both; }
+    .hero-eyebrow {
+      display: block; font-size: 11px; font-weight: 500;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+    }
+    .hero-text h1 {
+      font-size: 86px; font-weight: 300; line-height: 1.02;
+      color: white; text-shadow: 0 2px 24px rgba(0,0,0,.3);
+    }
+    .hero-text p {
+      margin: 22px 0 36px; font-size: 13px;
+      letter-spacing: 2px; color: rgba(255,255,255,.8); text-transform: uppercase;
+    }
+    .buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 40px; right: 80px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.5); font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom,rgba(255,255,255,.5),transparent);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{transform:scaleY(1);opacity:1;} 50%{transform:scaleY(.5);opacity:.4;} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+
+    /* ESSENTIALS */
+    .essentials { padding: 100px 120px; background: var(--warm-white); }
+    .card-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .card {
+      background: white; border-radius: 4px; overflow: hidden; text-align: center;
+      width: 195px; flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: box-shadow .3s; cursor: pointer;
+    }
+    .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+    .card-img-wrap { position: relative; overflow: hidden; }
+    .card-img-wrap img { width: 100%; height: 230px; object-fit: cover; transition: transform .5s; }
+    .card:hover .card-img-wrap img { transform: scale(1.06); }
+    .card-hover-btn {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 12px;
+      background: rgba(200,169,126,.92); color: white;
+      font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+      transform: translateY(100%); transition: transform .3s;
+    }
+    .card:hover .card-hover-btn { transform: translateY(0); }
+    .card p { padding: 14px; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); }
+
+    /* SALE */
+    .sale { background: var(--taupe); overflow: hidden; }
+    .sale-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 90px 120px; position: relative;
+    }
+    .sale-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+      border: 1px solid var(--gold); padding: 5px 12px; margin-bottom: 24px; border-radius: 2px;
+    }
+    .sale-text h2 { font-size: 48px; font-weight: 300; line-height: 1.2; margin-bottom: 18px; }
+    .sale-text p { font-size: 13px; color: var(--mid); margin-bottom: 32px; line-height: 1.7; max-width: 380px; }
+    .sale-deco { position: relative; width: 280px; height: 280px; flex-shrink: 0; }
+    .sale-circle {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 1px solid rgba(200,169,126,.35);
+      animation: spinSlow 20s linear infinite;
+    }
+    .sale-circle::before {
+      content: ''; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border-radius: 50%; border: 1px solid rgba(200,169,126,.55);
+    }
+    .sale-circle::after {
+      content: '30% OFF'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300; color: var(--gold);
+    }
+    @keyframes spinSlow { from{transform:rotate(0);} to{transform:rotate(360deg);} }
+
+    /* TRENDING */
+    .trending { padding: 100px 120px; background: var(--cream); }
+
+    /* BRAND STORY */
+    .brand-story { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+    .brand-story-img { background: url("./image/background-header.avif") center/cover; min-height: 400px; }
+    .brand-story-text {
+      background: var(--charcoal); color: white;
+      padding: 80px; display: flex; flex-direction: column; justify-content: center;
+    }
+    .brand-story-text .section-label { color: var(--gold); }
+    .brand-story-text h2 { font-size: 42px; color: white; margin-bottom: 20px; }
+    .brand-story-text p { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,.65); margin-bottom: 16px; }
+
+    /* REVIEWS */
+    .reviews { padding: 100px 120px; background: var(--warm-white); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .review-card { background: white; padding: 36px 30px; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+    .review-stars { color: var(--gold); font-size: 13px; margin-bottom: 16px; letter-spacing: 2px; }
+    .review-text {
+      font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300;
+      font-style: italic; line-height: 1.6; color: var(--charcoal); margin-bottom: 20px;
+    }
+    .review-author { display: flex; align-items: center; gap: 14px; }
+    .review-avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--taupe);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold-dark);
+      font-weight: 600; flex-shrink: 0;
+    }
+    .review-name { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+    .review-verified { font-size: 10px; color: var(--light); letter-spacing: 1px; margin-top: 2px; }
+
+    /* INSTAGRAM */
+    .instagram { padding: 100px 120px; background: var(--cream); }
+    .insta-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; margin-top: 40px; }
+    .insta-item { aspect-ratio: 1; overflow: hidden; background: var(--taupe); cursor: pointer; position: relative; border-radius: 3px; }
+    .insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .insta-item:hover img { transform: scale(1.08); }
+    .insta-hover {
+      position: absolute; inset: 0; background: rgba(0,0,0,.4);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 22px; opacity: 0; transition: opacity .3s;
+    }
+    .insta-item:hover .insta-hover { opacity: 1; }
+    .insta-handle { display: block; text-align: center; margin-top: 28px; font-size: 13px; letter-spacing: 2px; color: var(--mid); }
+    .insta-handle span { color: var(--gold); }
+
+    /* NEWSLETTER */
+    .newsletter { background: var(--charcoal); padding: 90px 120px; text-align: center; color: white; }
+    .newsletter h2 { font-size: 46px; color: white; margin-bottom: 14px; }
+    .newsletter p { font-size: 13px; letter-spacing: 1px; color: rgba(255,255,255,.55); margin-bottom: 40px; }
+    .newsletter-form {
+      display: flex; max-width: 500px; margin: 0 auto;
+      border: 1px solid rgba(255,255,255,.2); border-radius: 2px; overflow: hidden;
+    }
+    .newsletter-form input {
+      flex: 1; background: transparent; border: none; outline: none;
+      padding: 16px 22px; font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 1px; color: white;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,.35); }
+    .newsletter-form button {
+      padding: 16px 28px; background: var(--gold); color: white; border: none;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif; transition: .25s; flex-shrink: 0;
+    }
+    .newsletter-form button:hover { background: var(--gold-dark); }
+    .newsletter-fine { font-size: 10px; color: rgba(255,255,255,.25); margin-top: 16px; letter-spacing: 1px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .hero { padding-left: 60px; }
+      .hero-text h1 { font-size: 62px; }
+      .essentials, .trending, .sale-inner, .brand-story-text,
+      .newsletter, .reviews, .instagram { padding-left: 40px; padding-right: 40px; }
+      .sale-deco { display: none; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .insta-grid { grid-template-columns: repeat(4,1fr); }
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 0 24px; }
+      .hero-text h1 { font-size: 46px; }
+      .hero-scroll { display: none; }
+      .essentials, .trending, .sale-inner, .brand-story-text,
+      .newsletter, .reviews, .instagram { padding-left: 20px; padding-right: 20px; }
+      .brand-story { grid-template-columns: 1fr; }
+      .brand-story-img { min-height: 260px; }
+      .brand-story-text { padding: 50px 24px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .insta-grid { grid-template-columns: repeat(3,1fr); }
+      .sale-inner { padding: 50px 20px; }
+      .sale-text h2 { font-size: 34px; }
+      .newsletter-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header">
+    <a class="logo" href="index.html">MEN'S</a>
+    <nav>
+      <a href="index.html"       class="active" data-page="home">Home</a>
+      <a href="clothing.html"    data-page="clothing">Clothing</a>
+      <a href="footwear.html"    data-page="footwear">Footwear</a>
+      <a href="accessories.html" data-page="accessories">Accessories</a>
+      <a href="lookbook.html"    data-page="lookbook">Lookbook</a>
+    </nav>
+    <div class="header-actions">
+      <i class="fas fa-search" onclick="openSearch()" title="Search"></i>
+      <div class="cart-count">
+        <i class="fas fa-shopping-bag" onclick="openCart()" title="Cart"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+    <div>
+      <div class="search-box">
+        <input type="text" placeholder="Search for products…" id="searchInput" oninput="handleSearch(this.value)">
+        <button class="search-close" onclick="closeSearch()">&#10005;</button>
+      </div>
+      <div class="search-hint">Try: Bomber jacket, Wool coat, Sneakers…</div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Bag</h3><button class="cart-close" onclick="closeCart()">&#10005;</button></div>
+    <div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn-primary" onclick="showToast('Checkout coming soon!')">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- SIZE GUIDE MODAL -->
+  <div class="modal-overlay" id="sizeModal" onclick="closeSizeModal(event)">
+    <div class="modal">
+      <div class="modal-head"><h3>Size Guide</h3><button class="modal-close" onclick="closeSizeModal()">&#10005;</button></div>
+      <div class="modal-body">
+        <div class="size-tabs">
+          <button class="size-tab active" onclick="switchSizeTab(this,'tops')">Tops</button>
+          <button class="size-tab" onclick="switchSizeTab(this,'bottoms')">Bottoms</button>
+          <button class="size-tab" onclick="switchSizeTab(this,'shoes')">Shoes</button>
+        </div>
+        <div id="sizeTabTops">
+          <table class="size-table"><thead><tr><th>Size</th><th>Chest (in)</th><th>Waist (in)</th><th>Hip (in)</th></tr></thead>
+          <tbody><tr><td>XS</td><td>34–36</td><td>28–30</td><td>34–36</td></tr><tr><td>S</td><td>36–38</td><td>30–32</td><td>36–38</td></tr><tr><td>M</td><td>38–40</td><td>32–34</td><td>38–40</td></tr><tr><td>L</td><td>40–42</td><td>34–36</td><td>40–42</td></tr><tr><td>XL</td><td>42–44</td><td>36–38</td><td>42–44</td></tr><tr><td>XXL</td><td>44–47</td><td>38–41</td><td>44–47</td></tr></tbody></table>
+        </div>
+        <div id="sizeTabBottoms" style="display:none">
+          <table class="size-table"><thead><tr><th>Size</th><th>Waist (in)</th><th>Inseam (in)</th><th>EU Size</th></tr></thead>
+          <tbody><tr><td>28</td><td>28</td><td>30</td><td>44</td></tr><tr><td>30</td><td>30</td><td>30/32</td><td>46</td></tr><tr><td>32</td><td>32</td><td>30/32</td><td>48</td></tr><tr><td>34</td><td>34</td><td>32</td><td>50</td></tr><tr><td>36</td><td>36</td><td>32</td><td>52</td></tr><tr><td>38</td><td>38</td><td>32/34</td><td>54</td></tr></tbody></table>
+        </div>
+        <div id="sizeTabShoes" style="display:none">
+          <table class="size-table"><thead><tr><th>US</th><th>UK</th><th>EU</th><th>CM</th></tr></thead>
+          <tbody><tr><td>7</td><td>6</td><td>40</td><td>25</td></tr><tr><td>8</td><td>7</td><td>41</td><td>26</td></tr><tr><td>9</td><td>8</td><td>42</td><td>27</td></tr><tr><td>10</td><td>9</td><td>43</td><td>28</td></tr><tr><td>11</td><td>10</td><td>44</td><td>29</td></tr><tr><td>12</td><td>11</td><td>46</td><td>30</td></tr></tbody></table>
+        </div>
+        <div class="modal-tip"><strong>How to measure:</strong> Use a soft tape. For chest, measure around the fullest part. For waist, the narrowest point. If between sizes, size up.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeProductModal(event)">
+    <div class="product-modal">
+      <div class="product-modal-img"><img id="modalImg" src="" alt=""><button class="product-modal-close" onclick="closeProductModal()">&#10005;</button></div>
+      <div class="product-modal-info">
+        <div class="product-cat" id="modalCat"></div>
+        <h2 id="modalName"></h2>
+        <div class="modal-price" id="modalPrice"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="size-label">Select Size</div>
+        <div class="size-options">
+          <button class="size-opt" onclick="selectSize(this)">XS</button>
+          <button class="size-opt" onclick="selectSize(this)">S</button>
+          <button class="size-opt selected" onclick="selectSize(this)">M</button>
+          <button class="size-opt" onclick="selectSize(this)">L</button>
+          <button class="size-opt" onclick="selectSize(this)">XL</button>
+        </div>
+        <button class="modal-size-guide" onclick="openSizeModal()">View Size Guide &rarr;</button>
+        <div class="modal-actions" style="margin-top:22px;">
+          <button class="btn-primary" onclick="addToCartFromModal()">Add to Bag</button>
+          <button class="modal-wishlist"><i class="far fa-heart"></i> Save to Wishlist</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <span class="hero-eyebrow">New Season — 2025</span>
+      <h1>Define<br><em>Your Style</em></h1>
+      <p>Modern Menswear for Every Occasion</p>
+      <div class="buttons">
+        <a href="clothing.html"><button class="btn-primary">Shop Now</button></a>
+        <a href="lookbook.html"><button class="btn-outline">New Arrivals</button></a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- ── ESSENTIALS ── -->
+  <section class="essentials">
+    <div class="section-header">
+      <span class="section-label">Collections</span>
+      <h2>Essentials</h2>
+    </div>
+    <div class="card-container">
+      <a href="clothing.html" class="card"><div class="card-img-wrap"><img src="./image/casual.png" alt="Casual Wear"><div class="card-hover-btn">Explore</div></div><p>Casual Wear</p></a>
+      <a href="clothing.html" class="card"><div class="card-img-wrap"><img src="./image/formal.png" alt="Formal Wear"><div class="card-hover-btn">Explore</div></div><p>Formal Wear</p></a>
+      <a href="clothing.html" class="card"><div class="card-img-wrap"><img src="./image/street.png" alt="Street Style"><div class="card-hover-btn">Explore</div></div><p>Street Style</p></a>
+      <a href="clothing.html" class="card"><div class="card-img-wrap"><img src="./image/outer.png" alt="Outerwear"><div class="card-hover-btn">Explore</div></div><p>Outerwear</p></a>
+      <a href="accessories.html" class="card"><div class="card-img-wrap"><img src="./image/accessories.png" alt="Accessories"><div class="card-hover-btn">Explore</div></div><p>Accessories</p></a>
+    </div>
+  </section>
+
+  <!-- ── SALE ── -->
+  <section class="sale">
+    <div class="sale-inner">
+      <div class="sale-text">
+        <span class="sale-tag">Limited Time</span>
+        <h2>Autumn Collection —<br>Up to <em>30% Off</em></h2>
+        <p>Refined pieces for the season ahead. Curated for the modern gentleman.</p>
+        <a href="clothing.html"><button class="btn-primary">Shop Collection</button></a>
+      </div>
+      <div class="sale-deco"><div class="sale-circle"></div></div>
+    </div>
+  </section>
+
+  <!-- ── TRENDING ── -->
+  <section class="trending">
+    <div class="section-header">
+      <span class="section-label">Featured</span>
+      <h2>Trending Now</h2>
+    </div>
+    <div class="product-container" id="trendingGrid"></div>
+  </section>
+
+  <!-- ── BRAND STORY ── -->
+  <section class="brand-story">
+    <div class="brand-story-img"></div>
+    <div class="brand-story-text">
+      <span class="section-label">Our Story</span>
+      <h2>Crafted for the<br>Modern Man</h2>
+      <p>Since 2010, MEN'S has been at the intersection of heritage craftsmanship and contemporary design. Every piece is thoughtfully sourced, cut with precision, and built to endure beyond the season.</p>
+      <p>We believe dressing well is a form of self-respect — an expression that requires no words.</p>
+      <button class="btn-outline" style="margin-top:16px;display:inline-block;width:fit-content;">Our Heritage</button>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ── -->
+  <section class="reviews">
+    <div class="section-header">
+      <span class="section-label">Testimonials</span>
+      <h2>What Our Customers Say</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"The quality of the wool coat exceeded every expectation. The fabric is extraordinary."</p>
+        <div class="review-author"><div class="review-avatar">J</div><div><div class="review-name">James T.</div><div class="review-verified">Verified Purchase</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-text">"Finally a menswear brand that understands fit. The blazer is exactly what I was looking for."</p>
+        <div class="review-author"><div class="review-avatar">M</div><div><div class="review-name">Marcus D.</div><div class="review-verified">Verified Purchase</div></div></div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p class="review-text">"Exceptional packaging and fast delivery. The polo shirt is now a staple in my wardrobe."</p>
+        <div class="review-author"><div class="review-avatar">A</div><div><div class="review-name">Alex P.</div><div class="review-verified">Verified Purchase</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSTAGRAM ── -->
+  <section class="instagram">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-label" style="display:block;">Follow Along</span>
+      <h2>@MENS_Fashion</h2>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-item"><img src="./image/product1.jpg" alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+      <div class="insta-item"><img src="./image/product2.png" alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+      <div class="insta-item"><img src="./image/product3.png" alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+      <div class="insta-item"><img src="./image/product4.png" alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+      <div class="insta-item"><img src="./image/casual.png"   alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+      <div class="insta-item"><img src="./image/formal.png"   alt=""><div class="insta-hover"><i class="fab fa-instagram"></i></div></div>
+    </div>
+    <span class="insta-handle">Follow us on Instagram <span>@MENS_Fashion</span></span>
+  </section>
+
+  <!-- ── NEWSLETTER ── -->
+  <section class="newsletter">
+    <span class="section-label" style="display:block;">Stay Updated</span>
+    <h2>Join the Inner Circle</h2>
+    <p>Exclusive drops, early access, and style notes — delivered to your inbox.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Your email address" id="newsletterEmail">
+      <button onclick="subscribeNewsletter()">Subscribe</button>
+    </div>
+    <p class="newsletter-fine">No spam, ever. Unsubscribe at any time.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo">MEN'S</div><p>Modern menswear crafted<br>for the discerning gentleman.</p></div>
+      <div class="footer-section"><h3>Shop</h3><ul class="list"><li><a href="clothing.html">Clothing</a></li><li><a href="footwear.html">Footwear</a></li><li><a href="accessories.html">Accessories</a></li><li><a href="lookbook.html">Lookbook</a></li></ul></div>
+      <div class="footer-section"><h3>Customer Service</h3><ul class="list"><li><a href="contact.html">Contact Us</a></li><li><a href="#">Returns &amp; Exchanges</a></li><li><a href="#">Shipping Information</a></li><li><a href="#" onclick="openSizeModal()">Size Guide</a></li></ul></div>
+      <div class="footer-section"><h3>Follow Us</h3><ul class="social-icons"><li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li><li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li><li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li><li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div class="marquee-wrapper"><div class="marquee-track"><span>Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp; Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp;</span></div></div>
+      <div class="footer-legal">MEN'S Fashion. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render trending products
+      const trending = products.filter(p => p.id <= 4);
+      document.getElementById('trendingGrid').innerHTML = trending.map(productCard).join('');
+    });
+  </script>
+</body>
+</html>

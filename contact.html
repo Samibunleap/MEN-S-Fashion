@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEN'S — Contact Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── HERO ── */
+    .contact-hero {
+      min-height: 46vh;
+      background: var(--charcoal);
+      display: flex; align-items: flex-end;
+      padding: 120px 120px 64px;
+      position: relative; overflow: hidden;
+    }
+    .contact-hero::before {
+      content: 'CONTACT';
+      position: absolute; right: 60px; bottom: -20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 200px; font-weight: 300; line-height: 1;
+      color: rgba(255,255,255,.03);
+      pointer-events: none; letter-spacing: -8px;
+    }
+    .contact-hero-text { position: relative; z-index: 2; animation: fadeUp .8s ease both; }
+    .contact-hero-text .section-label { color: var(--gold); }
+    .contact-hero-text h1 { font-size: 72px; font-weight: 300; color: white; line-height: 1.05; margin-bottom: 16px; }
+    .contact-hero-text p { font-size: 13px; color: rgba(255,255,255,.5); letter-spacing: 1px; max-width: 440px; line-height: 1.8; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+    /* ── BODY: INFO + FORM ── */
+    .contact-body { display: grid; grid-template-columns: 1fr 1.55fr; min-height: 60vh; }
+
+    /* LEFT */
+    .contact-info { background: var(--sand); padding: 80px 60px; display: flex; flex-direction: column; gap: 44px; }
+    .contact-divider { width: 36px; height: 1px; background: var(--gold); }
+    .contact-info-block h3 { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-family: 'Montserrat',sans-serif; }
+    .contact-info-block p { font-size: 13px; line-height: 1.85; color: var(--mid); }
+    .contact-info-block a { color: var(--charcoal); font-weight: 500; transition: color .2s; }
+    .contact-info-block a:hover { color: var(--gold); }
+    .hours-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--mid); padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,.07); }
+    .hours-row span:last-child { color: var(--charcoal); font-weight: 500; }
+    .contact-social { display: flex; gap: 12px; margin-top: 6px; }
+    .contact-social a { width: 40px; height: 40px; border: 1px solid var(--taupe); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--mid); transition: all .2s; }
+    .contact-social a:hover { background: var(--charcoal); border-color: var(--charcoal); color: white; }
+
+    /* RIGHT */
+    .contact-form-wrap { background: var(--warm-white); padding: 80px; }
+    .contact-form-wrap .section-header { margin-bottom: 36px; }
+    .contact-form-wrap .section-header h2 { font-size: 38px; }
+
+    .topic-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px; }
+    .topic-pill { padding: 8px 18px; border: 1px solid var(--sand); background: white; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); border-radius: 2px; transition: all .2s; cursor: pointer; font-family: 'Montserrat',sans-serif; }
+    .topic-pill:hover { border-color: var(--charcoal); color: var(--charcoal); }
+    .topic-pill.active { background: var(--charcoal); border-color: var(--charcoal); color: white; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+    .form-group label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { border: 1px solid var(--sand); background: white; outline: none; padding: 14px 16px; font-family: 'Montserrat',sans-serif; font-size: 13px; color: var(--charcoal); border-radius: 2px; transition: border-color .2s; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--light); }
+    .form-group select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+    .form-group textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+
+    .form-submit-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 8px; }
+    .form-note { font-size: 11px; color: var(--light); }
+    .form-note i { color: var(--gold); margin-right: 5px; }
+    .btn-submit { padding: 15px 44px; background: var(--charcoal); color: white; border: none; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; border-radius: 2px; transition: background .25s, transform .2s; font-family: 'Montserrat',sans-serif; }
+    .btn-submit:hover { background: var(--gold); transform: translateY(-2px); }
+
+    .form-success { display: none; text-align: center; padding: 60px 40px; animation: fadeUp .5s ease both; }
+    .form-success i { font-size: 52px; color: var(--gold); margin-bottom: 20px; display: block; }
+    .form-success h3 { font-size: 34px; margin-bottom: 12px; }
+    .form-success p { font-size: 13px; color: var(--mid); line-height: 1.8; max-width: 360px; margin: 0 auto 28px; }
+
+    /* ── FAQ ── */
+    .faq-strip { background: var(--cream); padding: 80px 120px; }
+    .faq-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 36px; margin-top: 48px; }
+    .faq-item { border-top: 1px solid var(--taupe); padding-top: 24px; }
+    .faq-q { font-family: 'Cormorant Garamond',serif; font-size: 19px; font-weight: 400; margin-bottom: 12px; color: var(--charcoal); cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .faq-q i { font-size: 12px; color: var(--gold); margin-top: 5px; flex-shrink: 0; transition: transform .3s; }
+    .faq-q.open i { transform: rotate(45deg); }
+    .faq-a { font-size: 13px; line-height: 1.8; color: var(--mid); max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-a.open { max-height: 200px; }
+
+    /* ── STORE STRIP ── */
+    .store-strip { background: var(--charcoal); display: grid; grid-template-columns: 1fr 1fr; }
+    .store-info { padding: 80px; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+    .store-info .section-label { color: var(--gold); }
+    .store-info h2 { font-size: 42px; font-weight: 300; color: white; margin-bottom: 4px; }
+    .store-detail { display: flex; gap: 16px; align-items: flex-start; }
+    .store-detail i { color: var(--gold); font-size: 16px; margin-top: 3px; flex-shrink: 0; }
+    .store-detail p { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,.6); }
+    .store-detail strong { color: white; display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .store-map { min-height: 420px; background: #2a2a2a; position: relative; overflow: hidden; }
+    .store-map::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 60px), repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 60px); }
+    .map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .map-pin i { font-size: 42px; color: var(--gold); filter: drop-shadow(0 4px 12px rgba(200,169,126,.5)); animation: pinBounce 2s ease-in-out infinite; }
+    .map-pin span { background: white; padding: 6px 14px; border-radius: 2px; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--charcoal); white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+    @keyframes pinBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      .contact-hero,.faq-strip { padding-left:40px; padding-right:40px; }
+      .contact-form-wrap { padding:60px 40px; }
+      .faq-grid { grid-template-columns:1fr 1fr; }
+      .store-info { padding:60px 40px; }
+    }
+    @media(max-width:768px){
+      .contact-hero { padding:100px 20px 50px; }
+      .contact-hero-text h1 { font-size:42px; }
+      .contact-hero::before { display:none; }
+      .contact-body { grid-template-columns:1fr; }
+      .contact-info { padding:50px 20px; }
+      .contact-form-wrap { padding:50px 20px; }
+      .form-row { grid-template-columns:1fr; }
+      .faq-strip { padding:50px 20px; }
+      .faq-grid { grid-template-columns:1fr; }
+      .store-strip { grid-template-columns:1fr; }
+      .store-info { padding:50px 20px; }
+      .store-map { min-height:280px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" class="solid">
+    <a class="logo" href="index.html">MEN'S</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="clothing.html">Clothing</a>
+      <a href="footwear.html">Footwear</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="lookbook.html">Lookbook</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <i class="fas fa-search" onclick="openSearch()"></i>
+      <div class="cart-count">
+        <i class="fas fa-shopping-bag" onclick="openCart()"></i>
+        <div class="cart-badge" id="cartBadge">0</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)"><div><div class="search-box"><input type="text" placeholder="Search…" id="searchInput" oninput="handleSearch(this.value)"><button class="search-close" onclick="closeSearch()">&#10005;</button></div><div class="search-hint">Try: Bomber jacket, Wool coat…</div></div></div>
+
+  <!-- CART -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header"><h3>Your Bag</h3><button class="cart-close" onclick="closeCart()">&#10005;</button></div>
+    <div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div>
+      <button class="btn-primary" onclick="showToast('Checkout coming soon!')">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- SIZE MODAL -->
+  <div class="modal-overlay" id="sizeModal" onclick="closeSizeModal(event)"><div class="modal"><div class="modal-head"><h3>Size Guide</h3><button class="modal-close" onclick="closeSizeModal()">&#10005;</button></div><div class="modal-body"><div class="size-tabs"><button class="size-tab active" onclick="switchSizeTab(this,'tops')">Tops</button><button class="size-tab" onclick="switchSizeTab(this,'bottoms')">Bottoms</button><button class="size-tab" onclick="switchSizeTab(this,'shoes')">Shoes</button></div><div id="sizeTabTops"><table class="size-table"><thead><tr><th>Size</th><th>Chest</th><th>Waist</th></tr></thead><tbody><tr><td>S</td><td>36–38</td><td>30–32</td></tr><tr><td>M</td><td>38–40</td><td>32–34</td></tr><tr><td>L</td><td>40–42</td><td>34–36</td></tr><tr><td>XL</td><td>42–44</td><td>36–38</td></tr></tbody></table></div><div id="sizeTabBottoms" style="display:none"><table class="size-table"><thead><tr><th>Size</th><th>Waist</th></tr></thead><tbody><tr><td>30</td><td>30"</td></tr><tr><td>32</td><td>32"</td></tr><tr><td>34</td><td>34"</td></tr></tbody></table></div><div id="sizeTabShoes" style="display:none"><table class="size-table"><thead><tr><th>US</th><th>EU</th></tr></thead><tbody><tr><td>8</td><td>41</td></tr><tr><td>9</td><td>42</td></tr><tr><td>10</td><td>43</td></tr><tr><td>11</td><td>44</td></tr></tbody></table></div><div class="modal-tip"><strong>How to measure:</strong> Chest around fullest part, waist at narrowest. If between sizes, size up.</div></div></div></div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeProductModal(event)"><div class="product-modal"><div class="product-modal-img"><img id="modalImg" src="" alt=""><button class="product-modal-close" onclick="closeProductModal()">&#10005;</button></div><div class="product-modal-info"><div class="product-cat" id="modalCat"></div><h2 id="modalName"></h2><div class="modal-price" id="modalPrice"></div><p class="modal-desc" id="modalDesc"></p><div class="size-label">Select Size</div><div class="size-options"><button class="size-opt" onclick="selectSize(this)">XS</button><button class="size-opt" onclick="selectSize(this)">S</button><button class="size-opt selected" onclick="selectSize(this)">M</button><button class="size-opt" onclick="selectSize(this)">L</button><button class="size-opt" onclick="selectSize(this)">XL</button></div><div class="modal-actions"><button class="btn-primary" onclick="addToCartFromModal()">Add to Bag</button><button class="modal-wishlist"><i class="far fa-heart"></i> Save to Wishlist</button></div></div></div></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+  <!-- HERO -->
+  <div class="contact-hero">
+    <div class="contact-hero-text">
+      <span class="section-label">Get In Touch</span>
+      <h1>We'd Love to<br><em>Hear From You</em></h1>
+      <p>Whether it's a question about an order, styling advice, or just a hello — our team is here and ready to help.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT BODY -->
+  <div class="contact-body">
+
+    <!-- LEFT: Info -->
+    <div class="contact-info">
+      <div class="contact-divider"></div>
+      <div class="contact-info-block">
+        <h3>Email Us</h3>
+        <p>General Enquiries<br><a href="mailto:samibunleapp@gmail.com">samibunleapp@gmail.com</a></p>
+        <p style="margin-top:10px;">Order Support<br><a href="mailto:orders@mensfashion.com">orders@mensfashion.com</a></p>
+      </div>
+      <div class="contact-info-block">
+        <h3>Call Us</h3>
+        <p><a href="tel:+18005551234">+855 962702059</a><br><span style="font-size:12px;">Mon–Fri, 9am–6pm EST</span></p>
+      </div>
+      <div class="contact-info-block">
+        <h3>Opening Hours</h3>
+        <div class="hours-row"><span>Monday – Friday</span><span>9:00 – 18:00</span></div>
+        <div class="hours-row"><span>Saturday</span><span>10:00 – 17:00</span></div>
+        <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+      </div>
+      <div class="contact-info-block">
+        <h3>Follow Us</h3>
+        <div class="contact-social">
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="contact-form-wrap">
+      <div class="section-header">
+        <span class="section-label">Send a Message</span>
+        <h2>How Can We Help?</h2>
+      </div>
+
+      <div class="topic-pills">
+        <button class="topic-pill active" onclick="selectTopic(this,'')">General</button>
+        <button class="topic-pill" onclick="selectTopic(this,'Question about an order')">Order Query</button>
+        <button class="topic-pill" onclick="selectTopic(this,'Returns &amp; Exchanges')">Returns</button>
+        <button class="topic-pill" onclick="selectTopic(this,'Sizing Help')">Styling Advice</button>
+        <button class="topic-pill" onclick="selectTopic(this,'Wholesale Enquiry')">Wholesale</button>
+        <button class="topic-pill" onclick="selectTopic(this,'Press &amp; Media')">Press</button>
+      </div>
+
+      <div id="contactForm">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="firstName" placeholder="James"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="lastName" placeholder="Thompson"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email Address</label><input type="email" id="emailField" placeholder="james@email.com"></div>
+          <div class="form-group"><label>Phone (Optional)</label><input type="tel" id="phoneField" placeholder="+1 (000) 000-0000"></div>
+        </div>
+        <div class="form-group"><label>Order Number (if applicable)</label><input type="text" id="orderNo" placeholder="e.g. #MF-20451"></div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select id="subjectField">
+            <option value="">Select a subject…</option>
+            <option>Question about an order</option>
+            <option>Returns &amp; Exchanges</option>
+            <option>Sizing Help</option>
+            <option>Product Availability</option>
+            <option>Wholesale Enquiry</option>
+            <option>Press &amp; Media</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Your Message</label><textarea id="messageField" placeholder="Tell us how we can help…"></textarea></div>
+        <div class="form-submit-row">
+          <p class="form-note"><i class="fas fa-lock"></i> Your data is secure and never shared.</p>
+          <button class="btn-submit" onclick="submitContactForm()">Send Message</button>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="form-success" id="formSuccess">
+        <i class="fas fa-check-circle"></i>
+        <h3>Message Sent</h3>
+        <p>Thank you for reaching out. A member of our team will get back to you within 24 hours.</p>
+        <button class="btn-primary" onclick="resetContactForm()">Send Another</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <section class="faq-strip">
+    <div class="section-header"><span class="section-label">Quick Answers</span><h2>Frequently Asked</h2><p>Can't find what you're looking for? Send us a message above.</p></div>
+    <div class="faq-grid">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does shipping take?<i class="fas fa-plus"></i></div><div class="faq-a">Standard shipping takes 3–5 business days. Express (1–2 days) is available at checkout. Free standard shipping on all orders over $50.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is your return policy?<i class="fas fa-plus"></i></div><div class="faq-a">We offer free returns within 30 days of purchase. Items must be unworn and in original packaging. Initiate your return via our portal and we'll send a prepaid label.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I find my size?<i class="fas fa-plus"></i></div><div class="faq-a">Our full size guide with chest, waist, and inseam measurements is available on every product page and via the footer link. When between sizes, we recommend sizing up.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you ship internationally?<i class="fas fa-plus"></i></div><div class="faq-a">Yes — we ship to over 40 countries worldwide. International shipping typically takes 7–14 business days. Duties and taxes may apply.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I modify or cancel my order?<i class="fas fa-plus"></i></div><div class="faq-a">Orders can be modified or cancelled within 1 hour of placement. After that, our warehouse may have already started processing. Contact us immediately at orders@mensfashion.com.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are your products sustainably made?<i class="fas fa-plus"></i></div><div class="faq-a">Sustainability is core to everything we do. We use ethically sourced natural fibres, partner with certified manufacturers, and are working toward fully carbon-neutral shipping by 2026.</div></div>
+    </div>
+  </section>
+
+  <!-- STORE STRIP -->
+  <div class="store-strip">
+    <div class="store-info">
+      <div><span class="section-label">Visit Us</span><h2>Our MEN'S Fashion </h2></div>
+      <div class="store-detail"><i class="fas fa-map-marker-alt"></i><p><strong>MEN'S Fashion — Phnom Penh</strong>Russian Federation Blvd (110), <br>Phnom Penh 120404</p></div>
+      <div class="store-detail"><i class="fas fa-clock"></i><p><strong>Store Hours</strong>Mon–Sat: 10:00am – 8:00pm<br>Sunday: 11:00am – 6:00pm</p></div>
+      <div class="store-detail"><i class="fas fa-phone"></i><p><strong>Store Direct</strong><a href="tel:+12125551234" style="color:rgba(255,255,255,.6);">+855 962702059</a></p></div>
+      <a href="https://www.google.com/maps/place/Royal+University+of+Phnom+Penh/@11.5686769,104.888556,17z/data=!4m6!3m5!1s0x3109519fe4077d69:0x20138e822e434660!8m2!3d11.568676!4d104.8907417!16s%2Fm%2F0278m39?entry=ttu&g_ep=EgoyMDI2MDMwNC4xIKXMDSoASAFQAw%3D%3D" target="_blank"><button class="btn-outline" style="margin-top:8px;">Get Directions &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></button></a>
+    </div>
+    <div class="store-map"><div class="map-pin"><i class="fas fa-map-marker-alt"></i><span>MEN'S — SoHo, NYC</span></div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo">MEN'S</div><p>Modern menswear crafted<br>for the discerning gentleman.</p></div>
+      <div class="footer-section"><h3>Shop</h3><ul class="list"><li><a href="index.html">Home</a></li><li><a href="clothing.html">Clothing</a></li><li><a href="footwear.html">Footwear</a></li><li><a href="accessories.html">Accessories</a></li><li><a href="lookbook.html">Lookbook</a></li></ul></div>
+      <div class="footer-section"><h3>Customer Service</h3><ul class="list"><li><a href="contact.html">Contact Us</a></li><li><a href="#">Returns &amp; Exchanges</a></li><li><a href="#">Shipping Information</a></li><li><a href="#" onclick="openSizeModal()">Size Guide</a></li></ul></div>
+      <div class="footer-section"><h3>Follow Us</h3><ul class="social-icons"><li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li><li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li><li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li><li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div class="marquee-wrapper"><div class="marquee-track"><span>Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp; Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp;</span></div></div><div class="footer-legal">&copy; 2025 MEN'S Fashion. All rights reserved.</div></div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    function selectTopic(btn, subject) {
+      document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const sel = document.getElementById('subjectField');
+      for (let opt of sel.options) { if (opt.value === subject || opt.text === subject) { sel.value = opt.value; break; } }
+    }
+    function submitContactForm() {
+      const first   = document.getElementById('firstName').value.trim();
+      const last    = document.getElementById('lastName').value.trim();
+      const email   = document.getElementById('emailField').value.trim();
+      const message = document.getElementById('messageField').value.trim();
+      if (!first)   { highlightField('firstName',  'Please enter your first name.');   return; }
+      if (!last)    { highlightField('lastName',   'Please enter your last name.');    return; }
+      if (!email || !email.includes('@')) { highlightField('emailField', 'Please enter a valid email.'); return; }
+      if (!message) { highlightField('messageField','Please enter your message.');      return; }
+      document.getElementById('contactForm').style.display  = 'none';
+      document.getElementById('formSuccess').style.display  = 'block';
+    }
+    function highlightField(id, msg) {
+      const el = document.getElementById(id);
+      el.style.borderColor = '#c0392b'; el.focus(); showToast(msg);
+      el.addEventListener('input', () => { el.style.borderColor = ''; }, { once: true });
+    }
+    function resetContactForm() {
+      ['firstName','lastName','emailField','phoneField','orderNo','messageField'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('subjectField').selectedIndex = 0;
+      document.getElementById('contactForm').style.display  = 'block';
+      document.getElementById('formSuccess').style.display  = 'none';
+      document.querySelectorAll('.topic-pill').forEach((p,i) => p.classList.toggle('active', i===0));
+    }
+    function toggleFaq(el) {
+      const answer = el.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); el.classList.add('open'); }
+    }
+  </script>
+</body>
+</html>

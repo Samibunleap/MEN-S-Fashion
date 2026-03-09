@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEN'S — Clothing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── SHOP LAYOUT ── */
+    .shop-layout { display: grid; grid-template-columns: 240px 1fr; gap: 0; min-height: 60vh; }
+    .shop-filters { background: var(--warm-white); padding: 50px 40px; border-right: 1px solid var(--sand); }
+    .filter-group { margin-bottom: 36px; }
+    .filter-group h4 {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--charcoal); font-weight: 600; margin-bottom: 16px; font-family: 'Montserrat', sans-serif;
+    }
+    .filter-option { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; }
+    .filter-option input[type=checkbox] { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+    .filter-option label { font-size: 12px; color: var(--mid); cursor: pointer; letter-spacing: .5px; }
+    .filter-option label:hover { color: var(--charcoal); }
+    .price-range { margin-top: 8px; }
+    .price-range input[type=range] { width: 100%; accent-color: var(--gold); cursor: pointer; }
+    .price-range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--light); margin-top: 6px; }
+
+    .shop-grid-wrap { padding: 50px 60px; background: var(--cream); }
+    .shop-toolbar {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px;
+    }
+    .shop-count { font-size: 12px; color: var(--light); letter-spacing: 1px; }
+    .shop-sort {
+      padding: 9px 14px; background: white; border: 1px solid var(--sand);
+      font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 1px;
+      outline: none; cursor: pointer; color: var(--charcoal); border-radius: 2px;
+    }
+    .shop-product-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+
+    @media (max-width: 1100px) {
+      .shop-grid-wrap { padding: 40px; }
+      .shop-product-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .shop-layout { grid-template-columns: 1fr; }
+      .shop-filters { display: none; }
+      .shop-grid-wrap { padding: 30px 20px; }
+      .shop-product-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" class="solid">
+    <a class="logo" href="index.html">MEN'S</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="clothing.html" class="active">Clothing</a>
+      <a href="footwear.html">Footwear</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="lookbook.html">Lookbook</a>
+    </nav>
+    <div class="header-actions">
+      <i class="fas fa-search" onclick="openSearch()" title="Search"></i>
+      <div class="cart-count"><i class="fas fa-shopping-bag" onclick="openCart()" title="Cart"></i><div class="cart-badge" id="cartBadge">0</div></div>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)"><div><div class="search-box"><input type="text" placeholder="Search for products…" id="searchInput" oninput="handleSearch(this.value)"><button class="search-close" onclick="closeSearch()">&#10005;</button></div><div class="search-hint">Try: Bomber jacket, Wool coat, Sneakers…</div></div></div>
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)"></div>
+  <div class="cart-drawer" id="cartDrawer"><div class="cart-header"><h3>Your Bag</h3><button class="cart-close" onclick="closeCart()">&#10005;</button></div><div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div><button class="btn-primary" onclick="showToast('Checkout coming soon!')">Proceed to Checkout</button></div></div>
+  <!-- SIZE MODAL -->
+  <div class="modal-overlay" id="sizeModal" onclick="closeSizeModal(event)"><div class="modal"><div class="modal-head"><h3>Size Guide</h3><button class="modal-close" onclick="closeSizeModal()">&#10005;</button></div><div class="modal-body"><div class="size-tabs"><button class="size-tab active" onclick="switchSizeTab(this,'tops')">Tops</button><button class="size-tab" onclick="switchSizeTab(this,'bottoms')">Bottoms</button><button class="size-tab" onclick="switchSizeTab(this,'shoes')">Shoes</button></div><div id="sizeTabTops"><table class="size-table"><thead><tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hip</th></tr></thead><tbody><tr><td>XS</td><td>34–36</td><td>28–30</td><td>34–36</td></tr><tr><td>S</td><td>36–38</td><td>30–32</td><td>36–38</td></tr><tr><td>M</td><td>38–40</td><td>32–34</td><td>38–40</td></tr><tr><td>L</td><td>40–42</td><td>34–36</td><td>40–42</td></tr><tr><td>XL</td><td>42–44</td><td>36–38</td><td>42–44</td></tr><tr><td>XXL</td><td>44–47</td><td>38–41</td><td>44–47</td></tr></tbody></table></div><div id="sizeTabBottoms" style="display:none"><table class="size-table"><thead><tr><th>Size</th><th>Waist</th><th>Inseam</th><th>EU</th></tr></thead><tbody><tr><td>28</td><td>28</td><td>30</td><td>44</td></tr><tr><td>30</td><td>30</td><td>30/32</td><td>46</td></tr><tr><td>32</td><td>32</td><td>30/32</td><td>48</td></tr><tr><td>34</td><td>34</td><td>32</td><td>50</td></tr><tr><td>36</td><td>36</td><td>32</td><td>52</td></tr><tr><td>38</td><td>38</td><td>32/34</td><td>54</td></tr></tbody></table></div><div id="sizeTabShoes" style="display:none"><table class="size-table"><thead><tr><th>US</th><th>UK</th><th>EU</th><th>CM</th></tr></thead><tbody><tr><td>7</td><td>6</td><td>40</td><td>25</td></tr><tr><td>8</td><td>7</td><td>41</td><td>26</td></tr><tr><td>9</td><td>8</td><td>42</td><td>27</td></tr><tr><td>10</td><td>9</td><td>43</td><td>28</td></tr><tr><td>11</td><td>10</td><td>44</td><td>29</td></tr><tr><td>12</td><td>11</td><td>46</td><td>30</td></tr></tbody></table></div><div class="modal-tip"><strong>How to measure:</strong> Use a soft tape around the fullest part for chest, narrowest point for waist. If between sizes, size up.</div></div></div></div>
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeProductModal(event)"><div class="product-modal"><div class="product-modal-img"><img id="modalImg" src="" alt=""><button class="product-modal-close" onclick="closeProductModal()">&#10005;</button></div><div class="product-modal-info"><div class="product-cat" id="modalCat"></div><h2 id="modalName"></h2><div class="modal-price" id="modalPrice"></div><p class="modal-desc" id="modalDesc"></p><div class="size-label">Select Size</div><div class="size-options"><button class="size-opt" onclick="selectSize(this)">XS</button><button class="size-opt" onclick="selectSize(this)">S</button><button class="size-opt selected" onclick="selectSize(this)">M</button><button class="size-opt" onclick="selectSize(this)">L</button><button class="size-opt" onclick="selectSize(this)">XL</button></div><button class="modal-size-guide" onclick="openSizeModal()">View Size Guide &rarr;</button><div class="modal-actions" style="margin-top:22px;"><button class="btn-primary" onclick="addToCartFromModal()">Add to Bag</button><button class="modal-wishlist"><i class="far fa-heart"></i> Save to Wishlist</button></div></div></div></div>
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-text">
+      <span class="section-label">Shop</span>
+      <h1>Clothing</h1>
+    </div>
+  </div>
+
+  <!-- SHOP LAYOUT -->
+  <div class="shop-layout">
+    <aside class="shop-filters">
+      <div class="filter-group">
+        <h4>Category</h4>
+        <div class="filter-option"><input type="checkbox" id="fc1" checked><label for="fc1">Jackets &amp; Coats</label></div>
+        <div class="filter-option"><input type="checkbox" id="fc2" checked><label for="fc2">Blazers</label></div>
+        <div class="filter-option"><input type="checkbox" id="fc3" checked><label for="fc3">Shirts</label></div>
+        <div class="filter-option"><input type="checkbox" id="fc4" checked><label for="fc4">Trousers</label></div>
+        <div class="filter-option"><input type="checkbox" id="fc5" checked><label for="fc5">Knitwear</label></div>
+      </div>
+      <div class="filter-group">
+        <h4>Size</h4>
+        <div class="filter-option"><input type="checkbox" id="fs1" checked><label for="fs1">XS / S</label></div>
+        <div class="filter-option"><input type="checkbox" id="fs2" checked><label for="fs2">M / L</label></div>
+        <div class="filter-option"><input type="checkbox" id="fs3" checked><label for="fs3">XL / XXL</label></div>
+      </div>
+      <div class="filter-group">
+        <h4>Price Range</h4>
+        <div class="price-range">
+          <input type="range" min="0" max="500" value="500" oninput="document.getElementById('priceLabel').textContent='Up to $'+this.value">
+          <div class="price-range-labels"><span>$0</span><span id="priceLabel">Up to $500</span></div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <h4>Colour</h4>
+        <div class="filter-option"><input type="checkbox" id="col1" checked><label for="col1">Black</label></div>
+        <div class="filter-option"><input type="checkbox" id="col2" checked><label for="col2">Navy</label></div>
+        <div class="filter-option"><input type="checkbox" id="col3" checked><label for="col3">Beige / Cream</label></div>
+        <div class="filter-option"><input type="checkbox" id="col4" checked><label for="col4">Grey</label></div>
+        <div class="filter-option"><input type="checkbox" id="col5" checked><label for="col5">Brown</label></div>
+      </div>
+    </aside>
+    <div class="shop-grid-wrap">
+      <div class="shop-toolbar">
+        <span class="shop-count" id="shopCount">Loading…</span>
+        <select class="shop-sort"><option>Sort: Featured</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Newest First</option></select>
+      </div>
+      <div class="shop-product-grid" id="clothingGrid"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo">MEN'S</div><p>Modern menswear crafted<br>for the discerning gentleman.</p></div>
+      <div class="footer-section"><h3>Shop</h3><ul class="list"><li><a href="index.html">Home</a></li><li><a href="clothing.html">Clothing</a></li><li><a href="footwear.html">Footwear</a></li><li><a href="accessories.html">Accessories</a></li></ul></div>
+      <div class="footer-section"><h3>Help</h3><ul class="list"><li><a href="contact.html">Contact Us</a></li><li><a href="#" onclick="openSizeModal()">Size Guide</a></li><li><a href="#">Returns</a></li><li><a href="#">Shipping</a></li></ul></div>
+      <div class="footer-section"><h3>Follow Us</h3><ul class="social-icons"><li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li><li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li><li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div class="marquee-wrapper"><div class="marquee-track"><span>Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp; Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp;</span></div></div><div class="footer-legal">&copy; 2025 MEN'S Fashion. All rights reserved.</div></div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const clothing = products.filter(p => p.tag === 'clothing');
+      document.getElementById('clothingGrid').innerHTML = clothing.map(productCard).join('');
+      document.getElementById('shopCount').textContent = `Showing ${clothing.length} products`;
+    });
+  </script>
+</body>
+</html>

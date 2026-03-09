@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEN'S — Lookbook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .lookbook-intro {
+      padding: 140px 120px 60px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .lookbook-intro-text .section-label { color: var(--gold); }
+    .lookbook-intro-text h1 { font-size: 64px; font-weight: 300; line-height: 1.08; margin-bottom: 20px; }
+    .lookbook-intro-text p { font-size: 13px; line-height: 1.9; color: var(--mid); }
+    .lookbook-season {
+      font-size: 120px; font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; color: var(--sand); line-height: 1; text-align: right;
+    }
+
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      grid-auto-rows: 320px;
+      gap: 8px;
+      padding: 0 120px 100px;
+    }
+    .look-item { position: relative; overflow: hidden; cursor: pointer; border-radius: 3px; }
+    .look-item.tall  { grid-row: span 2; }
+    .look-item.wide  { grid-column: span 2; }
+    .look-item img   { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+    .look-item:hover img { transform: scale(1.04); }
+    .look-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.35);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
+      opacity: 0; transition: opacity .35s;
+    }
+    .look-item:hover .look-overlay { opacity: 1; }
+    .look-overlay h4 { font-size: 22px; color: white; margin-bottom: 4px; }
+    .look-overlay span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,.65); }
+
+    .lookbook-editorial {
+      padding: 80px 120px; background: var(--charcoal); color: white; text-align: center;
+    }
+    .lookbook-editorial h2 { font-size: 52px; color: white; margin-bottom: 14px; }
+    .lookbook-editorial p { font-size: 13px; color: rgba(255,255,255,.5); letter-spacing: 1px; margin-bottom: 36px; }
+    .editorial-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 1100px) {
+      .lookbook-intro { padding-left: 40px; padding-right: 40px; }
+      .lookbook-grid { padding-left: 40px; padding-right: 40px; }
+      .lookbook-editorial { padding-left: 40px; padding-right: 40px; }
+      .lookbook-season { display: none; }
+      .lookbook-intro { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .lookbook-intro { padding: 100px 20px 40px; gap: 30px; }
+      .lookbook-intro-text h1 { font-size: 44px; }
+      .lookbook-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; padding: 0 20px 60px; }
+      .look-item.tall, .look-item.wide { grid-row: auto; grid-column: auto; }
+      .lookbook-editorial { padding: 60px 20px; }
+      .lookbook-editorial h2 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header" class="solid">
+    <a class="logo" href="index.html">MEN'S</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="clothing.html">Clothing</a>
+      <a href="footwear.html">Footwear</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="lookbook.html" class="active">Lookbook</a>
+    </nav>
+    <div class="header-actions">
+      <i class="fas fa-search" onclick="openSearch()" title="Search"></i>
+      <div class="cart-count"><i class="fas fa-shopping-bag" onclick="openCart()" title="Cart"></i><div class="cart-badge" id="cartBadge">0</div></div>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)"><div><div class="search-box"><input type="text" placeholder="Search for products…" id="searchInput" oninput="handleSearch(this.value)"><button class="search-close" onclick="closeSearch()">&#10005;</button></div><div class="search-hint">Try: Bomber jacket, Wool coat, Sneakers…</div></div></div>
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)"></div>
+  <div class="cart-drawer" id="cartDrawer"><div class="cart-header"><h3>Your Bag</h3><button class="cart-close" onclick="closeCart()">&#10005;</button></div><div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-total"><span>Total</span><strong id="cartTotal">$0</strong></div><button class="btn-primary" onclick="showToast('Checkout coming soon!')">Proceed to Checkout</button></div></div>
+  <!-- SIZE MODAL (minimal, for header link) -->
+  <div class="modal-overlay" id="sizeModal" onclick="closeSizeModal(event)"><div class="modal"><div class="modal-head"><h3>Size Guide</h3><button class="modal-close" onclick="closeSizeModal()">&#10005;</button></div><div class="modal-body"><div class="size-tabs"><button class="size-tab active" onclick="switchSizeTab(this,'tops')">Tops</button><button class="size-tab" onclick="switchSizeTab(this,'bottoms')">Bottoms</button><button class="size-tab" onclick="switchSizeTab(this,'shoes')">Shoes</button></div><div id="sizeTabTops"><table class="size-table"><thead><tr><th>Size</th><th>Chest</th><th>Waist</th></tr></thead><tbody><tr><td>S</td><td>36–38</td><td>30–32</td></tr><tr><td>M</td><td>38–40</td><td>32–34</td></tr><tr><td>L</td><td>40–42</td><td>34–36</td></tr><tr><td>XL</td><td>42–44</td><td>36–38</td></tr></tbody></table></div><div id="sizeTabBottoms" style="display:none"><table class="size-table"><thead><tr><th>Size</th><th>Waist</th></tr></thead><tbody><tr><td>30</td><td>30</td></tr><tr><td>32</td><td>32</td></tr><tr><td>34</td><td>34</td></tr></tbody></table></div><div id="sizeTabShoes" style="display:none"><table class="size-table"><thead><tr><th>US</th><th>EU</th></tr></thead><tbody><tr><td>8</td><td>41</td></tr><tr><td>9</td><td>42</td></tr><tr><td>10</td><td>43</td></tr><tr><td>11</td><td>44</td></tr></tbody></table></div><div class="modal-tip">Visit the <a href="clothing.html" style="color:var(--gold)">Clothing</a> or <a href="footwear.html" style="color:var(--gold)">Footwear</a> pages for full size guides.</div></div></div></div>
+  <!-- PRODUCT MODAL -->
+  <div class="product-modal-overlay" id="productModal" onclick="closeProductModal(event)"><div class="product-modal"><div class="product-modal-img"><img id="modalImg" src="" alt=""><button class="product-modal-close" onclick="closeProductModal()">&#10005;</button></div><div class="product-modal-info"><div class="product-cat" id="modalCat"></div><h2 id="modalName"></h2><div class="modal-price" id="modalPrice"></div><p class="modal-desc" id="modalDesc"></p><div class="size-label">Select Size</div><div class="size-options"><button class="size-opt" onclick="selectSize(this)">XS</button><button class="size-opt" onclick="selectSize(this)">S</button><button class="size-opt selected" onclick="selectSize(this)">M</button><button class="size-opt" onclick="selectSize(this)">L</button><button class="size-opt" onclick="selectSize(this)">XL</button></div><div class="modal-actions" style="margin-top:22px;"><button class="btn-primary" onclick="addToCartFromModal()">Add to Bag</button><button class="modal-wishlist"><i class="far fa-heart"></i> Save to Wishlist</button></div></div></div></div>
+  <!-- TOAST -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+  <!-- INTRO -->
+  <div class="lookbook-intro">
+    <div class="lookbook-intro-text">
+      <span class="section-label">Autumn / Winter 2025</span>
+      <h1>The Season's<br><em>Narrative</em></h1>
+      <p>This season we explore the tension between structure and ease — tailored precision softened by warmth, texture, and quiet confidence. A wardrobe for the man who moves between worlds.</p>
+    </div>
+    <div class="lookbook-season">AW<br>25</div>
+  </div>
+
+  <!-- LOOK GRID -->
+  <div class="lookbook-grid">
+    <div class="look-item tall"><img src="./image/product1.jpg" alt="Look 01"><div class="look-overlay"><h4>Look 01</h4><span>The Architect</span></div></div>
+    <div class="look-item"><img src="./image/product2.png" alt="Look 02"><div class="look-overlay"><h4>Look 02</h4><span>City Formal</span></div></div>
+    <div class="look-item"><img src="./image/product3.png" alt="Look 03"><div class="look-overlay"><h4>Look 03</h4><span>Weekend Ease</span></div></div>
+    <div class="look-item wide"><img src="./image/background-header.avif" alt="Look 04"><div class="look-overlay"><h4>Look 04</h4><span>The Statement Coat</span></div></div>
+    <div class="look-item"><img src="./image/product4.png" alt="Look 05"><div class="look-overlay"><h4>Look 05</h4><span>Textured Layers</span></div></div>
+    <div class="look-item"><img src="./image/casual.png" alt="Look 06"><div class="look-overlay"><h4>Look 06</h4><span>Off Duty</span></div></div>
+    <div class="look-item"><img src="./image/formal.png" alt="Look 07"><div class="look-overlay"><h4>Look 07</h4><span>After Dark</span></div></div>
+    <div class="look-item tall"><img src="./image/outer.png" alt="Look 08"><div class="look-overlay"><h4>Look 08</h4><span>The Overcoat</span></div></div>
+    <div class="look-item"><img src="./image/street.png" alt="Look 09"><div class="look-overlay"><h4>Look 09</h4><span>Street Level</span></div></div>
+  </div>
+
+  <!-- EDITORIAL CTA -->
+  <div class="lookbook-editorial">
+    <span class="section-label" style="display:block;color:var(--gold);">Shop the Look</span>
+    <h2>Wear the Story</h2>
+    <p>Every look is available to shop — explore the full collection.</p>
+    <div class="editorial-buttons">
+      <a href="clothing.html"><button class="btn-primary">Shop Clothing</button></a>
+      <a href="accessories.html"><button class="btn-outline">Shop Accessories</button></a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="logo">MEN'S</div><p>Modern menswear crafted<br>for the discerning gentleman.</p></div>
+      <div class="footer-section"><h3>Shop</h3><ul class="list"><li><a href="index.html">Home</a></li><li><a href="clothing.html">Clothing</a></li><li><a href="footwear.html">Footwear</a></li><li><a href="accessories.html">Accessories</a></li></ul></div>
+      <div class="footer-section"><h3>Help</h3><ul class="list"><li><a href="contact.html">Contact Us</a></li><li><a href="#" onclick="openSizeModal()">Size Guide</a></li><li><a href="#">Returns</a></li></ul></div>
+      <div class="footer-section"><h3>Follow Us</h3><ul class="social-icons"><li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li><li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li><li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><div class="marquee-wrapper"><div class="marquee-track"><span>Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp; Free Shipping on Orders Over $50 &nbsp;&#10022;&nbsp; New Autumn Collection Now Live &nbsp;&#10022;&nbsp; Free Returns on All Orders &nbsp;&#10022;&nbsp;</span></div></div><div class="footer-legal">&copy; 2025 MEN'S Fashion. All rights reserved.</div></div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
